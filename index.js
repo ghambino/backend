@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 
 
-// app.use(bodyParser.json());
+
 app.use(cors());
 
 morgan.token('body', (req,res) => JSON.stringify(req.body));
@@ -67,7 +67,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 const generateId = () => {
     let maxId = persons.length > 0 ? Math.max(...persons.map(person => person.id)) : 0;
-    console.log(maxId)
+    console.log(maxId);
     return maxId + 1;
 }
 app.use(express.json());
