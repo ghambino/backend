@@ -1,13 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-// const bodyParser = require('body-parser');
+
 const app = express();
-
-
-
+app.use(bodyParser.json());
+// app.use(express.json());
 app.use(cors());
-
 morgan.token('body', (req,res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
@@ -70,9 +69,9 @@ const generateId = () => {
     console.log(maxId);
     return maxId + 1;
 }
-app.use(express.json());
 
  app.post('/api/persons', (req, res) => {
+    
     const body = req.body; 
     console.log(body)
     
@@ -81,6 +80,7 @@ app.use(express.json());
     } else if (persons.find(person => person.name === body.name)){
         res.status(302).json({error: 'name needs to be unique'})
     } else {
+
         const newContent = {
             id: generateId(),
             name: body.name,
